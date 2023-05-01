@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>メイン画面</title>
+</head>
+<body>
+  <header>
+    <div class="inline-flex items-center w-full h-16 bg-gray-600 text-white">
+      <!-- ホームアイコン -->
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 mx-5 ml-15 mr-10 cursor-pointer">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+      </svg>
+      <h1 class ="md:text-4xl font-bold">
+        災害時連絡掲示板
+      </h1>
+      <a class="flex cursor-pointer ml-auto mt-2">
+        <!-- ログアウトアイコン -->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class=" w-8 h-8 mr-1">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+        </svg>
+        <p class="text-right mr-5 mt-1 font-bold">ログアウト</p>
+      </a>
+    </div>  
+  </header>
+  <main>
+    <div class="flex justify-center">  
+      <div class="pl-10 flex-row">
+        <h2 class="text-3xl font-bold mt-4 mb-2">お知らせ</h2>
+        <label>
+          <input type="text" name="message" class="py-20 px-40 border border-black rounded" value=""></label>
+          <div class="text-left pl-5">
+            <ul class="m-4"> 
+              <li class="text-2xl font-bold m-2  border-black">無事</li>
+              <li class="text-2xl font-bold m-2  border-black">有事</li>
+              <li class="text-2xl font-bold m-2  border-black">未確認<li>
+            </ul>
+          </div>
+        </label>  
+        <div class="flex justify-between font-bold text-2xl">
+          <label>
+            <input type="button" class="bg-gray-600 h-40 w-40 rounded hover:bg-blue-400 hover:text-white" value="投稿"> 
+          </label>   
+          <label>
+            <input type="button" class="bg-gray-600 h-40 w-40  rounded hover:bg-blue-400 hover:text-white" value="詳細"> 
+          </label>   
+          <label>
+            <input type="button" class="bg-gray-600 h-40 w-40  rounded hover:bg-blue-400 hover:text-white" value="編集">
+          </label>   
+        </div>
+      </div> 
+    </div> 
+  </main>
+</body>
+</html>
