@@ -28,7 +28,7 @@
 </head>
 <body>
   <header>
-    <div class="inline-flex items-center w-full h-16 bg-gray-600 text-white">
+    <div class="inline-flex items-center w-full h-16 bg-gray-200 text-gray-800">
       <!-- ホームアイコン -->
       <a href="MainScreen.html">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 md:w-10 md:h-10 mx-3 mt-2 md:mt-0 md:mx-5 md:ml-15 md:mr-10 cursor-pointer">
@@ -43,7 +43,7 @@
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mt-3 md:mt-0 w-5 h-5 md:w-8 md:h-8">
           <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
         </svg>
-        <label class="text-sm md:text-xl text-right text-white mr-5 mt-3 md:mt-1 font-bold cursor-pointer" for="pop-up">ログアウト</label>
+        <label class="text-sm md:text-xl text-right mr-5 mt-3 md:mt-1 font-bold cursor-pointer" for="pop-up">ログアウト</label>
         <input type="checkbox" id="pop-up">
         <div class="overlay">
           <div class="w-64 md:w-96 max-w-sm h-40 md:h-60 bg-white rounded-md flex justify-center items-center fixed top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 ">
@@ -55,7 +55,7 @@
       </div>
     </div>  
   </header>
-  <main>
+  <main class="bg-">
     <div class="flex justify-center ">  
       <div>
         <h2 class="text-3xl font-bold mt-4 mb-2 ">お知らせ</h2>
@@ -79,17 +79,17 @@
           </div>
         <div class="flex justify-between font-bold text-2xl">
             <div class="relative" onclick="location.href =''">
-              <input type="button" class="text-white bg-gray-700 h-28 w-28 md:h-40 md:w-40 rounded-md hover:bg-blue-950 hover:text-3xl cursor-pointer">
+              <input type="button" class="text-white bg-blue-500 h-28 w-28 md:h-40 md:w-40 rounded-md hover:bg-a hover:text-3xl cursor-pointer">
               <div class="text-white font-bold absolute bottom-20 left-9 md:bottom-24 md:left-14 cursor-pointer" >投稿</div>
               <div class="absolute border-t-2 border-white pt-3 px-2 md:px-0 bottom-6 left-0 md:bottom-12 md:left-3 text-xs md:text-sm text-white cursor-pointer">安否確認の投稿はこちら</div>
             </div>  
-            <div class="relative" onclick="location.href ='FullDetailScreen.html'">
-              <input type="button" class="text-white bg-gray-700 h-28 w-28 md:h-40 md:w-40 mx-1 rounded-md hover:bg-blue-950 hover:text-3xl cursor-pointer"> 
+            <div class="relative md:mx-16" onclick="location.href ='FullDetailScreen.html'">
+              <input type="button" class="text-white bg-blue-500 h-28 w-28 md:h-40 md:w-40 mx-1 rounded-md hover:bg-a hover:text-3xl cursor-pointer"> 
               <div class="text-white font-bold absolute bottom-20 left-9 md:bottom-24 md:left-16 cursor-pointer">詳細</div>
               <div class="absolute border-t-2 border-white pt-3 px-2 md:px-0 bottom-6 left-1 md:bottom-12 md:left-4 text-xs md:text-sm text-white cursor-pointer">安否確認の詳細はこちら</div>
             </div>   
             <div class="relative" onclick="location.href =''">
-              <input type="button" class="text-white bg-gray-700 h-28 w-28 md:h-40 md:w-40 rounded-md cursor-pointer hover:bg-blue-950 hover:text-3xl">
+              <input type="button" class="text-white bg-blue-500 h-28 w-28 md:h-40 md:w-40 rounded-md cursor-pointer hover:bg-a hover:text-3xl">
               <div class="text-white font-bold absolute bottom-20 left-9 md:bottom-24 md:left-14 cursor-pointer">編集</div>
               <div class="absolute border-t-2 border-white pt-3 px-1 md:px-0 bottom-6 left-0 md:bottom-12 md:left-2 text-xs md:text-sm text-white cursor-pointer">プロフィールの編集はこちら</div>
             </div>  
