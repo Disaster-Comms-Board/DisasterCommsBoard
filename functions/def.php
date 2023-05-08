@@ -1,6 +1,6 @@
 <?php
 // 定数
-define( "WEB_ROOT", "http://localhost/disaster_board" );
+define( "WEB_ROOT", "http://localhost/DisasterCommsBoard/" );
 // define( "WEB_ROOT", "http://localhost/Project_folder" );
 
 // define( "ASSET_URL", WEB_ROOT . "/asset" );
