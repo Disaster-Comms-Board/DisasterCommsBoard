@@ -62,8 +62,8 @@
                         <input type="number" name="user_id" placeholder="ID" class="w-full border-b border-black focus:outline-none" required>
                     </div>   
                     <div class="mt-3">
-                        <input type="text" name="first_name" placeholder="姓" class="w-full mr-5 border-b border-black focus:outline-none" required>
-                        <input type="text" name="last_name" placeholder="名" class="w-full border-b border-black focus:outline-none" required>
+                        <input type="text" name="last_name" placeholder="姓" class="w-full mr-5 border-b border-black focus:outline-none" required>
+                        <input type="text" name="first_name" placeholder="名" class="w-full border-b border-black focus:outline-none" required>
                     </div>
                     <div class="mt-3 text-gray-500">   
                         <label>部署</label>
