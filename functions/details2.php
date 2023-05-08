@@ -36,7 +36,7 @@
             LEFT JOIN contact AS c ON(u.user_id = c.user_id) 
             JOIN store AS s ON (u.store_id = s.store_id)";
 
-    //検索 https://www.php.cn/php-weizijiaocheng-375235.html
+    //検索 
     if(isset($_POST['btn_submit'])){
       if(isset($_POST['store'])){
         $sql .= " WHERE s.store_id = :store";
@@ -51,7 +51,7 @@
         $sql .= " WHERE c.condition = :condition";
       }
 
-      //エラー
+      //文字検索
       if(isset($_POST['name'])){
         $sql .= " WHERE u.first_name LIKE :name OR u.last_name LIKE :name ";
         $nameLike = "%".$name."%";
@@ -74,6 +74,14 @@
         $result[] = $rows;
       }
     }else{
+
+      //連絡有無　入力があれば
+      if(is_null($isAttend)){
+        $isContact = "○";
+      }else{
+        $isContact = "×";
+      }
+      
       //格納
       $stmt = $db -> prepare($sql);
 
