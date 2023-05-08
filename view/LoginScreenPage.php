@@ -55,7 +55,7 @@
             </div>  
         </header>
         <main>
-            <form action="" method="GET">
+            <form action="" method="POST">
                 <div class="flex justify-center">
                     <div class="w-full border border-gray-600 rounded-md mx-80 mt-10 pt-10 pb-10 px-20">
                         <h1 class=" text-sm md:text-4xl font-bold text-center">ログイン</h1>
