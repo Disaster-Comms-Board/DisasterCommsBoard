@@ -54,37 +54,37 @@
         </div>  
     </header>
     <main>
-        <form action="" method="POST">
+        <form action="users.php" method="POST">
             <div class="flex justify-center">
                 <div class="w-full border border-gray-600 rounded-md mx-80 mt-10 pt-5 pb-2 px-20">
                     <h1 class=" text-sm md:text-4xl font-bold text-center">新規登録</h1>
                     <div class="mt-5">
-                        <input type="number" name="id" placeholder="ID" class="w-full border-b border-black focus:outline-none" required>
+                        <input type="number" name="user_id" placeholder="ID" class="w-full border-b border-black focus:outline-none" required>
                     </div>   
                     <div class="mt-3">
-                        <input type="text" name="name" placeholder="姓" class="w-full mr-5 border-b border-black focus:outline-none" required>
-                        <input type="text" name="name2" placeholder="名" class="w-full border-b border-black focus:outline-none" required>
+                        <input type="text" name="first_name" placeholder="姓" class="w-full mr-5 border-b border-black focus:outline-none" required>
+                        <input type="text" name="last_name" placeholder="名" class="w-full border-b border-black focus:outline-none" required>
                     </div>
                     <div class="mt-3 text-gray-500">   
                         <label>部署</label>
                     </div>
-                    <select name="deploy" id="deploy" class="w-14 md:w-28 py-1 pr-1  md:pl-4 text-gray-400 border border-gray-400 rounded">
+                    <select name="section" id="section" class="w-14 md:w-28 py-1 pr-1  md:pl-4 text-gray-400 border border-gray-400 rounded">
                         <option value='' disabled selected style='display:none;'>部署選択</option>
                     </select>
                     <div class="mt-3">    
-                        <input type="tel" name="tel" placeholder="電話番号" class="w-full border-b border-black focus:outline-none" required>
+                        <input type="tel" name="phone_number" placeholder="電話番号" class="w-full border-b border-black focus:outline-none" required>
                     </div>
                     <div class="mt-3">    
-                        <input type="email" name="mail" placeholder="メールアドレス" class="w-full border-b border-black focus:outline-none" required>
+                        <input type="email" name="e_mail" placeholder="メールアドレス" class="w-full border-b border-black focus:outline-none" required>
                     </div>
                     <div class="mt-3">    
-                        <input type="email" name="mail2" placeholder="メールアドレス(再確認)" class="w-full border-b border-black focus:outline-none" required>
+                        <input type="email" name="e_mail2" placeholder="メールアドレス(再確認)" class="w-full border-b border-black focus:outline-none" required>
                     </div>
                     <div class="mt-3">    
-                        <input type="password" name="pass" id="pass" placeholder="パスワード" class="w-full border-b border-black focus:outline-none" required>
+                        <input type="password" name="pw" id="pw" placeholder="パスワード" class="w-full border-b border-black focus:outline-none" required>
                     </div>
                     <div class="mt-3">    
-                        <input type="password" name="pass2" id="pass2" placeholder="パスワード(再確認)" class="w-full border-b border-black focus:outline-none" required>
+                        <input type="password" name="pw2" id="pw2" placeholder="パスワード(再確認)" class="w-full border-b border-black focus:outline-none" required>
                     </div> 
                     <div class="text-center mt-5">   
                         <a id ="login" href="login.html">
