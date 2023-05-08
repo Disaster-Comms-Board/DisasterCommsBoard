@@ -60,13 +60,13 @@
                     <div class="w-full border border-gray-600 rounded-md mx-80 mt-10 pt-10 pb-10 px-20">
                         <h1 class=" text-sm md:text-4xl font-bold text-center">ログイン</h1>
                         <div class="mt-20">
-                            <input type="number" name="id" placeholder="ID" class="w-full border-b border-black focus:outline-none" required>
+                            <input type="number" name="user_id" placeholder="ID" class="w-full border-b border-black focus:outline-none" required>
                         </div>   
                         <div class="mt-20">    
-                            <input type="password" name="pass" id="pass" placeholder="パスワード" class="w-full border-b border-black focus:outline-none" required>
+                            <input type="password" name="pw" id="pw" placeholder="パスワード" class="w-full border-b border-black focus:outline-none" required>
                         </div>
                         <div class="flex justify-center mt-10">    
-                            <input type="checkbox" name="userdata" id="userdata" class="w-5 border-b border-black focus:outline-none" required>
+                            <input type="checkbox" name="checkbox" class="w-5 border-b border-black focus:outline-none" required>
                             <label class="ml-3">ログイン状態を保持する</label>
                         </div>
                         <div class="text-center mt-10">   
