@@ -54,7 +54,7 @@
         </div>  
     </header>
     <main>
-        <form action="" method="GET">
+        <form action="" method="POST">
             <div class="flex justify-center">
                 <div class="w-full border border-gray-600 rounded-md mx-80 mt-10 pt-5 pb-2 px-20">
                     <h1 class=" text-sm md:text-4xl font-bold text-center">新規登録</h1>
