@@ -55,7 +55,7 @@
       </div>
     </div>  
   </header>
-  <main class="bg-">
+  <main class=>
     <div class="flex justify-center ">  
       <div>
         <h2 class="text-3xl font-bold mt-4 mb-2 ">お知らせ</h2>
