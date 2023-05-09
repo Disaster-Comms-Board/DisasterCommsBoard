@@ -28,10 +28,10 @@
   </head>
   <body>
     <!-- ヘッダー -->
-    <header>
+     <header>
     <div class="inline-flex items-center w-full h-16 bg-gray-200 text-gray-800">
       <!-- ホームアイコン -->
-      <a href="MainScreen.html">
+      <a href="MainScreenPage.php">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 md:w-10 md:h-10 mx-3 mt-2 md:mt-0 md:mx-5 md:ml-15 md:mr-10 cursor-pointer">
           <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
         </svg>
@@ -49,7 +49,7 @@
         <div class="overlay">
           <div class="w-64 md:w-96 max-w-sm h-40 md:h-60 bg-white rounded-md flex justify-center items-center fixed top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 ">
             <p class="text-lg absolute top-24 left-32 text-black"><span class="text-red-500">ログアウト</span>しますか?</p>
-            <input type="button" value="ログアウト" class="text-red-500 absolute bottom-14 right-56 cursor-pointer" onclick="location.href='MainScreen.html'">
+            <input type="button" value="ログアウト" class="text-red-500 absolute bottom-14 right-56 cursor-pointer" onclick="location.href='UserScreenPage.php'">
             <label for="pop-up" class="text-black absolute bottom-14 right-24 cursor-pointer">キャンセル</label>  
           </div>
         </div>
@@ -58,28 +58,37 @@
   </header>
     <!-- メイン -->
     <main class="mx-3 md:mx-12">
-      <form action="FullDetailScreen.html" method="GET">
+      <form action="FullDetailScreenPage.php" method="GET">
         <!-- 検索欄 -->
-        <div class="inline-flex md:items-center">
-          <input type="search" name="search" placeholder="Search" class="mt-5 md:mt-0 mr-1 pl-1 w-full md:w-60 h-8 border border-black rounded-lg focus:outline-none">
-          <input type="submit" value="検索" class="mr-3 mt-5 md:mt-0 md:mr-10 px-2 text-xs md:text-base text-white w-12 h-8 cursor-pointer bg-blue-400 rounded">
-          <div>
-            <select name="course" id="course"  class="w-14 md:w-28 py-1 pr-1 md:py-2 md:pl-4 my-5 border border-black rounded">
-              <option value='' disabled selected style='display:none;'>店舗選択</option>
-              <option class="" value=''>梅田駅前店</option>
-            </select>
+        <div class="flex flex-wrap ">  
+          <div class="inline-flex md:items-center md:mt-3">
+            <input type="search" name="search" placeholder="Search" class="mt-5 md:mt-0 mr-1 pl-1 w-full md:w-60 h-8 border border-black rounded-lg focus:outline-none">
+            <input type="submit" value="検索" class="mr-3 mt-5 md:mt-0 md:mr-10 px-2 text-xs md:text-base text-white w-12 h-8 cursor-pointer bg-blue-400 rounded">
           </div>
-          <div class="">
-            <select name="course" id="course" class="w-14 md:w-28 py-1 pr-1 md:py-2 md:pl-4 my-5 mx-1 md:mx-3 border border-black rounded">
-              <option value='' disabled selected style='display:none;'>役職選択</option>
-            </select>
+          <div class="flex md:mt-2">  
+            <div >
+              <select name="store" id="store"  class="w-16 md:w-28 py-1 pr-2 md:py-2 md:pl-4 my-5 border border-black rounded focus:outline-none">
+                <option value='' disabled selected style='display:none;'>店舗選択</option>
+                <option class="" value=''>梅田駅前店</option>
+              </select>
+            </div>
+            <div>
+              <select name="section" id="section" class="w-16 md:w-28 py-1 pr-2 md:py-2 md:pl-4 my-5 mx-3 md:mx-3 border border-black rounded focus:outline-none">
+                <option value='' disabled selected style='display:none;'>部署選択</option>
+              </select>
+            </div>
+            <div>
+              <select name="roll" id="roll" class="w-16 md:w-28 py-1 pr-2 md:py-2 md:pl-4 my-5 border border-black rounded focus:outline-none">
+                <option value='' disabled selected style='display:none;'>役職選択</option>
+              </select>
+            </div>
+            <div>
+              <select name="safety" id="safety" class="w-16 md:w-28 py-1 pr-2 md:py-2 md:pl-4 my-5 mx-3 md:mx-3 border border-black rounded focus:outline-none">
+                <option value='' disabled selected style='display:none;'>安否選択</option>
+              </select>
+            </div>
           </div>
-          <div class="">
-            <select name="course" id="course" class="w-14 md:w-28 py-1 pr-1 md:py-2 md:pl-4 my-5 border border-black rounded">
-              <option value='' disabled selected style='display:none;'>安否選択</option>
-            </select>
-          </div>
-        </div>
+        </div>  
       </form>    
       <!-- 一覧表示テーブル -->
       <div>
@@ -107,8 +116,8 @@
               <!-- アルバイト側画面では表示しないようにする -->
               <td class="border border-solid border-gray-500">
                 <!-- 個人詳細画面に遷移 -->
-                <a href="PersonalDetailScreen.html">
-                  <input type="submit" value="詳細画面へ" class="cursor-pointer text-blue-500">
+                <a href="PersonalDetailScreenPage.php">
+                  <button type="submit" class="cursor-pointer text-blue-500">詳細画面</botton>
                 </a>
               </td>
             </tr>
