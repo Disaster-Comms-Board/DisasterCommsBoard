@@ -2,38 +2,37 @@
 <html lang="ja">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>PostingScreen 投稿</title>
-    <style>
-      /* ポップアップ用ｃｓｓ */
-      #pop-up {
-        display: none; /* label でコントロールするので input は非表示にする */
-      }
-      .overlay {
-        display: none; /* input にチェックが入るまでは非表示にする */
-      }
-      #pop-up:checked + .overlay {
-        display: block;
-        z-index: 9999;
-        background-color: #00000070;
-        position: fixed;
-        width: 100%;
-        height: 100vh;
-        top: 0;
-        left: 0;
-      }
-    </style>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>PostingScreen 投稿</title>
+  <style>
+    /* ポップアップ用ｃｓｓ */
+    #pop-up {
+      display: none; /* label でコントロールするので input は非表示にする */
+    }
+    .overlay {
+      display: none; /* input にチェックが入るまでは非表示にする */
+    }
+    #pop-up:checked + .overlay {
+      display: block;
+      z-index: 9999;
+      background-color: #00000070;
+      position: fixed;
+      width: 100%;
+      height: 100vh;
+      top: 0;
+      left: 0;
+    }
+  </style>
 </head>
-
 <body>
     <!-- ▼▼ヘッダー▼▼--------------------------------- -->
   <header>
     <div class="inline-flex items-center w-full h-16 bg-gray-200 text-gray-800">
       <!-- ホームアイコン -->
-      <a href="MainScreen.html">
+      <a href="MainScreenPage.php">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 md:w-10 md:h-10 mx-3 mt-2 md:mt-0 md:mx-5 md:ml-15 md:mr-10 cursor-pointer">
           <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
         </svg>
@@ -51,65 +50,51 @@
         <div class="overlay">
           <div class="w-64 md:w-96 max-w-sm h-40 md:h-60 bg-white rounded-md flex justify-center items-center fixed top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 ">
             <p class="text-lg absolute top-24 left-32 text-black"><span class="text-red-500">ログアウト</span>しますか?</p>
-            <input type="button" value="ログアウト" class="text-red-500 absolute bottom-14 right-56 cursor-pointer" onclick="location.href='MainScreen.html'">
+            <input type="button" value="ログアウト" class="text-red-500 absolute bottom-14 right-56 cursor-pointer" onclick="location.href='UserScreenPage.php'">
             <label for="pop-up" class="text-black absolute bottom-14 right-24 cursor-pointer">キャンセル</label>  
           </div>
         </div>
       </div>
     </div>  
   </header>
-    <!-- メイン -->
-    <main>
-        <div class="border border-black mx-96 my-5 rounded-2xl">
-            <form name="postingFrom" action="">
-                <!-- 新規投稿 -->
-                <div class="text-center">
-                    <h2 class="text-3xl font-bold m-3">新規投稿</h2>
-                </div>
-                <!-- 安否確認(本人) -->
-                <div class="pl-24">
-                    <p class="font-bold">安否確認(本人)</p>
-                    <!-- 無事、有事チェック -->
-                    <label>
-                        <input type="radio" name="safetyCheck" value="無事" />
-                        無事&nbsp;&nbsp;&nbsp;
-                    </label>
-                    <label>
-                        <input type="radio" name="safetyCheck" value="有事" />
-                        有事
-                    </label>
+  <!-- メイン -->
+  <main>
+    <div class="flex justify-center">
+      <div class="w-full border border-black mx-96 mt-6 md:mt-10 mb-5 py-5 rounded-2xl">
+        <form action="" method="POST">
+          <!-- 新規投稿 -->
+          <h2 class="text-3xl mt-3 font-bold text-center">新規投稿</h2>
+          
+          <!-- 安否確認(本人) -->
+          <div class="mx-6 md:ml-24">
+            <div class="font-bold mt-3 mb-1">安否確認(本人)</div>
+            <!-- 無事、有事チェック -->
+            <label class="mx-3"><input type="radio" name="condition" id="condition" value="1">無事</label>
+            <label><input type="radio" name="condition" id="condition" value="0">有事</label>
+          </div>
 
-                    <!-- 出社可否 -->
-                    <p class="font-bold">出社可否</p>
-                    <!-- 可、不可チェック -->
-                    <label>
-                        <input type="radio" name="goWorkCheck" value="可" />
-                        可&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    </label>
-                    <label>
-                        <input type="radio" name="goWorkCheck" value="不可" />
-                        不可
-                    </label>
+          <!-- 出社可否 -->
+          <div class="mx-6 md:ml-24">
+            <div class="font-bold mt-3 mb-1">出社可否</div>
+            <!-- 可、不可チェック -->
+            <label class="mx-3 mr-7"><input type="radio" name="isAttend" id="isAttend" value="1">可</label>
+            <label><input type="radio" name="isAttend" id="isAttend" value="0">不可</label>
+          </div>
 
-                    <!-- 詳細情報 -->
-                    <p class="font-bold">詳細情報</p>
-                    <p>
-                        <textarea name="text" cols="50" rows="10" class="border border-black">
-                                    ここに入力
+          <!-- 詳細情報 -->
+          <div class="mx-6 md:mx-24">
+            <div class="font-bold mt-3">詳細情報</div>
+            <textarea name="detail" id="detail" class=" w-80 h-36 border border-black focus:outline-none">
             </textarea>
-                    </p>
-                </div>
-                <!-- 投稿ボタン -->
-                <div class="text-center">
-                    <p>
-                        <button class="bg-blue-400 font-semibold text-white py-2 px-4 rounded" type="PostingButton">
-                            投稿する
-                        </button>
-                    </p>
-                </div>
-            </form>
-        </div>
-    </main>
-</body>
+          </div>
 
+          <!-- 投稿ボタン -->
+          <div class="text-center">
+            <button class="w-40 md:w-52 h-10 mt-3 bg-blue-400 font-bold text-white rounded" type="submit" name="btn_submit" value="btn_submit" href="FullDetailScreenPage.php">投稿する</button>
+          </div>  
+        </form>
+      </div>
+    </div>  
+  </main>
+</body>
 </html>
