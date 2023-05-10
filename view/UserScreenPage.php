@@ -92,15 +92,30 @@ if(isset($_POST['btn_submit'])){
                         <input type="text" name="last_name" placeholder="姓" class="w-full mr-5 border-b border-black focus:outline-none" required>
                         <input type="text" name="first_name" placeholder="名" class="w-full border-b border-black focus:outline-none" required>
                     </div>
-                    <div class="mt-3 text-gray-500">   
-                        <label>部署</label>
+                    <div class="flex">
+                        <div class="flex-initial me-5">
+                            <div class="mt-3 text-gray-500">   
+                                <label>部署</label>
+                            </div>
+                            <select name="section_id" id="section" class="w-14 md:w-28 py-1 pr-1  md:pl-4 text-gray-400 border border-gray-400 rounded">
+                                <option value='' disabled selected style='display:none;'>部署選択</option>
+                                <?php foreach(getSections() as $section):?>
+                                    <option value="<?=$section['section_id']?>"><?=$section['section_name']?></option>
+                                <?php endforeach?>
+                            </select>
+                        </div>
+                        <div class="flex-initial mx-4">
+                            <div class="mt-3 text-gray-500">   
+                                <label>店舗</label>
+                            </div>
+                            <select name="store_id" id="store_id" class="w-14 md:w-28 py-1 pr-1  md:pl-4 text-gray-400 border border-gray-400 rounded">
+                                <option value="" disables selected>店舗選択</option>
+                                <?php foreach(getStores() as $store):?>
+                                    <option value="<?=$store['store_id']?>"><?=$store['store_name']?></option>
+                                <?php endforeach?>
+                            </select>
+                        </div>
                     </div>
-                    <select name="section_id" id="section" class="w-14 md:w-28 py-1 pr-1  md:pl-4 text-gray-400 border border-gray-400 rounded">
-                        <option value='' disabled selected style='display:none;'>部署選択</option>
-                        <?php foreach(getSections() as $section):?>
-                            <option value="<?=$section['section_id']?>"><?=$section['section_name']?></option>
-                        <?php endforeach?>
-                    </select>
                     <div class="mt-3">    
                         <input type="tel" name="phone_number" placeholder="電話番号" class="w-full border-b border-black focus:outline-none" required>
                     </div>
