@@ -1,3 +1,17 @@
+<?php
+    include '../functions/users.php';
+
+    $error = '';
+    if(isset($_POST['btn_submit'])){
+        if(login()){
+            // メインページへ
+            header("location: MainScreenPage.php");
+        } else {
+            $error = 'IDかパスワードが間違えています';
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
     <head>
@@ -63,23 +77,29 @@
                             <input type="number" name="user_id" placeholder="ID" class="w-full border-b border-black focus:outline-none" required>
                         </div>   
                         <div class="mt-20">    
-                            <input type="password" name="pw" id="pw" placeholder="パスワード" class="w-full border-b border-black focus:outline-none" required>
+                            <input type="password" name="password" id="pw" placeholder="パスワード" class="w-full border-b border-black focus:outline-none" required>
                         </div>
                         <div class="flex justify-center mt-10">    
-                            <input type="checkbox" name="checkbox" class="w-5 border-b border-black focus:outline-none" required>
+                            <input type="checkbox" name="checkbox" class="w-5 border-b border-black focus:outline-none">
                             <label class="ml-3">ログイン状態を保持する</label>
                         </div>
-                        <div class="text-center mt-10">   
-                            <a id ="login" href="MaiinScreenPage.php">
-                                <input type="submit" value="ログイン" class="w-60 h-10 bg-cyan-400 rounded-md text-white font-bold hover:cursor-pointer" required>
-                            </a>
+                        <div class="text-center mt-10">
+                            <button type="submit" name="btn_submit" class="w-60 h-10 bg-cyan-400 rounded-md text-white font-bold hover:cursor-pointer">ログイン</button>
                         </div>
                         <div class="text-center mt-10 text-cyan-300">   
                             <a id="touroku" href="UserScreenPage.php">新規登録はこちら</a>
                         </div>   
                     </div>
                 </div> 
-            </form>       
+            </form>  
+            
+            <?php
+            if($error != ''): ?>
+                <div class='w-1/2 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mx-auto text-center mt-5' role='alert'>
+                    <strong class='font-bold'><?=$error ?></strong><br>
+                    <span class='block sm:inline'>もう一度入力してください</span>
+                </div>
+            <?php endif ?>
         </main>    
     </body>  
 </html>

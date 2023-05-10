@@ -27,12 +27,12 @@ function confirmOld() {
         $stmt -> execute();
         
         // 実行結果の行数を取得
-        $count = $stmt -> rowCount();
+        $old_count = $stmt -> rowCount();
 
-        if($count == 1) {
+        if($old_count == 1) {
           // userテーブルにuser_idが一致するものがあるか確認する
-          $matchCount = getUser($user_id);
-          if($matchCount == 0){
+          $user_count = count(getUser($user_id));
+          if($user_count == 0){
             while($rows = $stmt -> fetch(PDO::FETCH_ASSOC)){
               $result = [
                 'error' => false,
@@ -45,7 +45,7 @@ function confirmOld() {
               'message' => '既にユーザー登録が完了しています'
             ];
           }
-        } else if($count == 0) {
+        } else if($old_count == 0) {
           // 該当なし
           $result = [
             'error' => true,
@@ -73,23 +73,26 @@ function addUser($role){
     // 入力情報
     $user_id = $_POST['user_id'];
     $phone_number = $_POST['phone_number'];
-
     $first_name = $_POST['first_name'];
     $last_name = $_POST['last_name'];
     $e_mail = $_POST['e_mail'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);;
-    $address = $_POST['address'];
+    // $address = $_POST['address'];
     $section_id = $_POST['section_id'];
-    $store_id = $_POST['store_id'];
-
+    if($section_id == 3){
+      $store_id = $_POST['store_id'];
+    } else {
+      $store_id = 0;
+    }
+    
     try{
         $dsn = "mysql:host=".DB_HOST.";dbname=".DB_NAME.";charset=".DB_CHARSET;
         $db = new PDO($dsn, DB_USER, DB_PASS);
         $db -> setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
         $db -> setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
-        $sql = "INSERT INTO user VALUES (:user_id, :phone_number, :first_name, :last_name
-                , :pw, :e_mail, :address, :section_id, :store_id, :role)";
+        $sql = "INSERT INTO user (user_id, phone_number, first_name, last_name, `password`, e_mail, section_id, store_id, role) VALUES (:user_id, :phone_number, :first_name, :last_name
+                , :pw, :e_mail, :section_id, :store_id, :role)";
 
         $stmt = $db -> prepare($sql);
 
@@ -99,7 +102,7 @@ function addUser($role){
         $stmt -> bindParam(':last_name', $last_name, PDO::PARAM_STR);
         $stmt -> bindParam(':pw', $password, PDO::PARAM_STR);
         $stmt -> bindParam(':e_mail', $e_mail, PDO::PARAM_STR);
-        $stmt -> bindParam(':address', $address, PDO::PARAM_STR);
+        // $stmt -> bindParam(':address', $address, PDO::PARAM_STR);
         $stmt -> bindParam(':section_id', $section_id, PDO::PARAM_STR);
         $stmt -> bindParam(':store_id', $store_id, PDO::PARAM_STR);
         $stmt -> bindParam(':role', $role, PDO::PARAM_STR);
@@ -107,13 +110,9 @@ function addUser($role){
         $stmt -> execute();
         $db -> commit();
 
-        header("location: login_page.php");
+        header("location: ../view/LoginScreenPage.php");
 
     } catch (PDOException $poe){
-        $result = [
-          "status" => true,
-          "message" => $poe
-        ];
         exit("DBエラー".$poe -> getMessage());
     } finally {
       $stmt = null;
@@ -151,7 +150,6 @@ function getUser($user_id){
       $stmt = null;
       $db = null;
     }
-    // print_r($result);
 
   return $result;
 }
@@ -206,7 +204,7 @@ function updateUser(){
   $first_name = $_POST['first_name'];
   $last_name = $_POST['last_name'];
   $e_mail = $_POST['e_mail'];
-  $address = $_POST['address'];
+  // $address = $_POST['address'];
   $section_id = $_POST['section_id'];
   $store_id = $_POST['store_id'];
 
@@ -218,7 +216,7 @@ function updateUser(){
 
       $sql 
         = "UPDATE user SET phone_number = :phone_number, first_name = :first_name
-          , last_name = :last_name, e_mail = :e_mail, address = :address, section_id = :section_id, store_id = :store_id 
+          , last_name = :last_name, e_mail = :e_mail, section_id = :section_id, store_id = :store_id 
           WHERE user_id = :user_id";
 
       $stmt = $db -> prepare($sql);
@@ -227,7 +225,7 @@ function updateUser(){
       $stmt -> bindParam(':first_name', $first_name, PDO::PARAM_STR);
       $stmt -> bindParam(':last_name', $last_name, PDO::PARAM_STR);
       $stmt -> bindParam(':e_mail', $e_mail, PDO::PARAM_STR);
-      $stmt -> bindParam(':address', $address, PDO::PARAM_STR);
+      // $stmt -> bindParam(':address', $address, PDO::PARAM_STR);
       $stmt -> bindParam(':section_id', $section_id, PDO::PARAM_STR);
       $stmt -> bindParam(':store_id', $store_id, PDO::PARAM_STR);
       $stmt -> bindParam(':user_id', $user_id, PDO::PARAM_STR);
