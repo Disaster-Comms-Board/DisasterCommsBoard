@@ -1,6 +1,6 @@
 <?php
   //外部ファイル読み込み
-  require_once "details2.php";
+  require_once "../functions/details2.php";
   DetailSecrch();
 
 ?>
@@ -104,7 +104,7 @@
                 </a>
               </td>
             </tr>
-            <?php endforeach?>
+            <?php endforeach; ?>
           </tbody>  
         </table>
       </div>

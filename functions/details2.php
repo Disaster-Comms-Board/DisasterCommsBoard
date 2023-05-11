@@ -20,8 +20,8 @@
 
       //安否確認
       $condition = filter_input(INPUT_POST,"condition");
-      //出社状況
-      $isAttend = filter_input(INPUT_POST,"isAttend");
+      //部署
+      $section = filter_input(INPUT_POST,"section_id");
 
     }
 
@@ -52,8 +52,8 @@
           $sql .= " WHERE u.role = :role";
         }
         
-        if(isset($_POST['condition'])){
-          $sql .= " WHERE c.condition = :condition";
+        if(isset($_POST['section_id'])){
+          $sql .= " WHERE u.section_id = :section_id";
         }
 
         //文字検索
@@ -68,7 +68,7 @@
 
         $stmt -> bindParam(":store",$store,PDO::PARAM_STR);
         $stmt -> bindParam(":role",$role,PDO::PARAM_STR);
-        $stmt -> bindParam(":condition",$condition,PDO::PARAM_STR);
+        $stmt -> bindParam(":section_id",$section_id,PDO::PARAM_STR);
         $stmt -> bindParam(":name",$nameLike,PDO::PARAM_STR);
 
 
@@ -80,15 +80,7 @@
         }
       }else{
 
-        //連絡有無　入力があれば
-        if(is_null($isAttend)){
-          $isContact = "○";
-        }else{
-          $isContact = "×";
-        }
-
-        //
-
+        
         //格納
         $stmt = $db -> prepare($sql);
 
@@ -100,6 +92,14 @@
         while($rows = $stmt -> fetch(PDO::FETCH_ASSOC)){
           $result[] = $rows;
         }
+
+        //連絡有無　入力があれば　エラー
+        if(is_null($result['isAttend'])){
+          $result['isContact'] = "○";
+        }else{
+          $result['isContact'] = "×";
+        }
+
       }
 
       //PDOオブジェクトの廃棄
