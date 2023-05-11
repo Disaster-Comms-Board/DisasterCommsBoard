@@ -36,9 +36,10 @@
       $db -> setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
 
       //SQL文準備
-      $sql = "SELECT u.user_id,u.first_name,u.last_name,s.store_id, s.store_name,c.condition,c.isAttend,u.role FROM user AS u 
+      $sql = "SELECT u.user_id,u.first_name,u.last_name,u.section_id,se.section_name,s.store_id,s.store_name,c.condition,c.isAttend,u.role FROM user AS u 
               LEFT JOIN contact AS c ON(u.user_id = c.user_id) 
-              JOIN store AS s ON (u.store_id = s.store_id)";
+              JOIN store AS s ON (u.store_id = s.store_id)
+              JOIN section AS se ON (u.section_id = se.section_name)";
 
       //検索 
       if(isset($_POST['btn_submit'])){
@@ -85,6 +86,8 @@
         }else{
           $isContact = "×";
         }
+
+        //
 
         //格納
         $stmt = $db -> prepare($sql);
