@@ -1,7 +1,14 @@
 <?php
   //外部ファイル読み込み
   require_once "../functions/details2.php";
-  DetailSecrch();
+  require_once '../functions/getInfo.php';
+  $all_users = DetailSearch();
+
+  if(isset($_GET['btn_submit'])){
+    echo '<pre>';
+    print_r($_GET);
+    echo '</pre>';
+  }
 
 ?>
 <!DOCTYPE html>
@@ -40,34 +47,42 @@
       <form action="FullDetailScreenPage.php" method="GET">
         <!-- 検索欄 -->
         <div class="flex flex-wrap ">  
-          <div class="inline-flex md:items-center md:mt-3">
-            <input type="search" name="search" placeholder="Search" class="mt-5 md:mt-0 mr-1 pl-1 w-full md:w-60 h-8 border border-black rounded-lg focus:outline-none">
-            <input type="submit" value="検索" class="mr-3 mt-5 md:mt-0 md:mr-10 px-2 text-xs md:text-base text-white w-12 h-8 cursor-pointer bg-blue-400 rounded">
+          <div class="inline-flex md:items-center md:mt-3 me-2">
+            <input type="search" name="search" placeholder="名前" class="mt-5 md:mt-0 mr-1 pl-1 w-full md:w-60 h-8 border border-black rounded-lg focus:outline-none">
+            <!-- <input type="submit" value="検索" class="mr-3 mt-5 md:mt-0 md:mr-10 px-2 text-xs md:text-base text-white w-12 h-8 cursor-pointer bg-blue-400 rounded"> -->
           </div>
           <div class="flex md:mt-2">  
             <div >
-              <select name="store" id="store"  class="w-16 md:w-28 py-1 pr-2 md:py-2 md:pl-4 my-5 border border-black rounded focus:outline-none">
+              <select name="store_id" id="store"  class="w-16 md:w-28 py-1 pr-2 md:py-2 md:pl-4 my-5 border border-black rounded focus:outline-none">
                 <option value='' disabled selected style='display:none;'>店舗選択</option>
-                <option class="" value=''><?=$result['s.store_name'] ?></option>
+                <?php foreach(getStores() as $store): ?>
+                <option value="<?=$store['store_id'] ?>"><?=$store['store_name'] ?></option>
+                <?php endforeach ?>
               </select>
             </div>
             <div>
-              <select name="section" id="section" class="w-16 md:w-28 py-1 pr-2 md:py-2 md:pl-4 my-5 mx-3 md:mx-3 border border-black rounded focus:outline-none">
+              <select name="section_id" id="section_id" class="w-16 md:w-28 py-1 pr-2 md:py-2 md:pl-4 my-5 mx-3 md:mx-3 border border-black rounded focus:outline-none">
                 <option value='' disabled selected style='display:none;'>部署選択</option>
-                <option value=""><?=$result['se.section_name'] ?></option>
+                <?php foreach(getSections() as $section): ?>
+                <option value="<?=$section['section_id'] ?>"><?=$section['section_name'] ?></option>
+                <?php endforeach ?>
               </select>
             </div>
             <div>
               <select name="roll" id="roll" class="w-16 md:w-28 py-1 pr-2 md:py-2 md:pl-4 my-5 border border-black rounded focus:outline-none">
                 <option value='' disabled selected style='display:none;'>役職選択</option>
-                <option value=""><?=$result['u.role'] ?></option>
+                <option value="Admin">管理者</option>
+                <option value="Employee">社員</option>
+                <option value="Part">アルバイト</option>
               </select>
             </div>
             <div>
-              <select name="safety" id="safety" class="w-16 md:w-28 py-1 pr-2 md:py-2 md:pl-4 my-5 mx-3 md:mx-3 border border-black rounded focus:outline-none">
+              <select name="condition" id="condition" class="w-16 md:w-28 py-1 pr-2 md:py-2 md:pl-4 my-5 mx-3 md:mx-3 border border-black rounded focus:outline-none">
                 <option value='' disabled selected style='display:none;'>安否選択</option>
-                <option value=""><?=$result['c.condition'] ?></option>
+                <option value="0">有事</option>
+                <option value="1">無事</option>
               </select>
+              <button name="btn_submit" class="mr-3 mt-5 md:mt-0 md:mr-10 px-2 text-xs md:text-base text-white w-12 h-8 cursor-pointer bg-blue-400 rounded">検索</button>
             </div>
           </div>
         </div>  
@@ -88,18 +103,18 @@
             </tr>
           </thead>
           <tbody class="text-center">
-            <?php foreach($result as $res):?>
+            <?php foreach($all_users as $user):?>
             <tr class="text-xs md:text-xl border border-solid border-gray-500 font-bold h-10 md:h-14 hover:bg-green-50">
-              <td class="border border-solid border-gray-500"><?=$res['u.user_id'] ?>0000001</td>
-              <td class="border border-solid border-gray-500"><?= $res['u.first_name'] ?> <?= $result['u.last_name'] ?>ECC太郎</td>
-              <td class="border border-solid border-gray-500"><?=$res['s.store_name'] ?>梅田駅前店</td>
-              <td class="border border-solid border-gray-500"><?=$isContact ?>有</td>
-              <td class="border border-solid border-gray-500"><?=$res['c.condition'] ?>無事</td>
-              <td class="border border-solid border-gray-500"><?=$res['c.isAttend'] ?>可</td>
+              <td class="border border-solid border-gray-500"><?=$user['user_id'] ?></td>
+              <td class="border border-solid border-gray-500"> <?= $user['last_name'] ?> <?= $user['first_name'] ?></td>
+              <td class="border border-solid border-gray-500"><?=$user['store_name'] ?></td>
+              <td class="border border-solid border-gray-500"><?=($user['isContact'] == 0) ? 'なし' : 'あり'?></td>
+              <td class="border border-solid border-gray-500"><?php if($user['isContact']) echo ($user['condition'] == 0) ? '有事' : '無事' ?></td>
+              <td class="border border-solid border-gray-500"><?php if($user['isContact']) echo ($user['isAttend'] == 0) ? '✗' : '○' ?></td>
               <!-- アルバイト側画面では表示しないようにする -->
               <td class="border border-solid border-gray-500">
                 <!-- 個人詳細画面に遷移 -->
-                <a href="PersonalDetailScreenPage.php?user_id=">
+                <a href="PersonalDetailScreenPage.php?user_id=<?=$user['user_id'] ?>">
                   <button class="cursor-pointer text-blue-500">詳細画面</botton>
                 </a>
               </td>
