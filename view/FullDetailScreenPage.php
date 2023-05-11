@@ -89,8 +89,8 @@
               <!-- アルバイト側画面では表示しないようにする -->
               <td class="border border-solid border-gray-500">
                 <!-- 個人詳細画面に遷移 -->
-                <a href="PersonalDetailScreenPage.php">
-                  <button type="submit" class="cursor-pointer text-blue-500">詳細画面</botton>
+                <a href="PersonalDetailScreenPage.php?user_id=">
+                  <button class="cursor-pointer text-blue-500">詳細画面</botton>
                 </a>
               </td>
             </tr>

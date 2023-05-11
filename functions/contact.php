@@ -6,7 +6,7 @@ require_once "def.php";
  *
  * @return array $result 連絡情報の配列
  */
-function checkContact(){
+function fetchContact(){
     $user_id = $_SESSION['user_id'];
 
     try{
@@ -34,6 +34,17 @@ function checkContact(){
     }
 
     return $result;
+}
+
+/**
+ * 連絡情報が登録済みかどうかを取得
+ * 
+ * @return bool $isset_contact 
+ */
+function checkContact(): bool{
+    $contact = fetchContact();
+    $contact_count = count($contact);
+    return ($contact_count == 1);
 }
 
 /**

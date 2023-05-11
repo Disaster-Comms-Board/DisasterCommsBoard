@@ -1,88 +1,108 @@
+<?php
+require_once '../functions/users.php';
+require_once '../functions/getInfo.php';
+
+session_start();
+
+$error = '';
+if(isset($_POST['btn_submit'])){
+    if(checkPW($_SESSION['user_id'], $_POST['password'])){
+        updateUser();
+        header("Location: MainScreenPage.php");
+    } else {
+        $error = 'パスワードが間違えています';
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UtF-8">
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Prodile プロフィール</title>
+    <title>プロフィール</title>
     <style>
-      /* ポップアップ用ｃｓｓ */
-      #pop-up {
-        display: none; /* label でコントロールするので input は非表示にする */
-      }
-      .overlay {
-        display: none; /* input にチェックが入るまでは非表示にする */
-      }
-      #pop-up:checked + .overlay {
-        display: block;
-        z-index: 9999;
-        background-color: #00000070;
-        position: fixed;
-        width: 100%;
-        height: 100vh;
-        top: 0;
-        left: 0;
-      }
-    </style>
-</head>
-
+        /* ポップアップ用ｃｓｓ */
+        #pop-up {
+          display: none; /* label でコントロールするので input は非表示にする */
+        }
+        .overlay {
+          display: none; /* input にチェックが入るまでは非表示にする */
+        }
+        #pop-up:checked + .overlay {
+          display: block;
+          z-index: 9999;
+          background-color: #00000070;
+          position: fixed;
+          width: 100%;
+          height: 100vh;
+          top: 0;
+          left: 0;
+        }
+      </style>    
+</head> 
 <body>
-  <?php
-  include 'header.php';
-  ?>
-    <!-- メイン -->
+    <?php
+    include 'header.php'; ?>
     <main>
-        <div class="border border-black mx-96 my-5 rounded-2xl">
-            <form name="ProfileFrom" action="">
-                <!-- プロフィール -->
-                <div class="text-center">
-                    <h2 class="text-3xl font-bold m-3">プロフィール</h2>
-                </div>
-                <div class="px-24">
-                    <div class="">
-                        <!-- ID -->
-                        <p class="mb-2">
-                        <div class="border-b border-black">ID</div>
-                        </p>
-                        <div class="">
-                            <ul class="flex mb-2">
-                                <!-- 姓 -->
-                                <li class="pr-44 border-b border-black">姓</li>
-                                <li>&nbsp;&nbsp;&nbsp;</li>
-                                <!-- 名 -->
-                                <li class="pr-48 border-b border-black">名</li>
-                            </ul>
+        <form action="" method="POST">
+            <div class="flex justify-center">
+                <div class="w-full border border-gray-600 rounded-md mx-80 mt-10 pt-5 pb-2 px-20">
+                    <h1 class=" text-sm md:text-4xl font-bold text-center">編集</h1>
+                    <div class="mt-5">
+                        <input type="number" name="user_id" placeholder="ID" class="w-full border-b border-black focus:outline-none" required>
+                    </div>   
+                    <div class="mt-3">
+                        <input type="text" name="last_name" placeholder="姓" class="w-full mr-5 border-b border-black focus:outline-none" required>
+                        <input type="text" name="first_name" placeholder="名" class="w-full border-b border-black focus:outline-none" required>
+                    </div>
+                    <div class="flex">
+                        <div class="flex-initial me-5">
+                            <div class="mt-3 text-gray-500">   
+                                <label>部署</label>
+                            </div>
+                            <select name="section_id" id="section" class="w-14 md:w-28 py-1 pr-1  md:pl-4 text-gray-400 border border-gray-400 rounded">
+                                <option value='' disabled selected style='display:none;'>部署選択</option>
+                                <?php foreach(getSections() as $section):?>
+                                    <option value="<?=$section['section_id']?>"><?=$section['section_name']?></option>
+                                <?php endforeach?>
+                            </select>
                         </div>
-                        <ul class="flex mb-2">
-                            <!-- 部署 -->
-                            <li class="pr-40 border-b border-black">部署</li>
-                            <li>&nbsp;&nbsp;&nbsp;</li>
-                            <!-- 役職 -->
-                            <li class="pr-44 border-b border-black">役職</li>
-                        </ul>
-                        <!-- 勤務店舗 -->
-                        <p class="mb-2 pr-44 border-b border-black">勤務店舗</p>
-                        <!-- 電話番号 -->
-                        <p class="mb-2 pr-44 border-b border-black">電話番号</p>
-                        <!-- メールアドレス -->
-                        <p class="mb-2 pr-44 border-b border-black">メールアドレス</p>
-                        <!-- パスワード -->
-                        <p class="pr-44 border-b border-black">パスワード</p>
+                        <div class="flex-initial">
+                            <div class="mt-3 text-gray-500">   
+                                <label>店舗</label>
+                            </div>
+                            <select name="store_id" id="store_id" class="w-14 md:w-28 py-1 pr-1  md:pl-4 text-gray-400 border border-gray-400 rounded">
+                                <option value="" disables selected>店舗選択</option>
+                                <?php foreach(getStores() as $store):?>
+                                    <option value="<?=$store['store_id']?>"><?=$store['store_name']?></option>
+                                <?php endforeach?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mt-3">    
+                        <input type="tel" name="phone_number" placeholder="電話番号" class="w-full border-b border-black focus:outline-none" required>
+                    </div>
+                    <div class="mt-3">    
+                        <input type="email" name="e_mail" placeholder="メールアドレス" class="w-full border-b border-black focus:outline-none" required>
+                    </div>
+                    <div class="mt-3">    
+                        <input type="email" name="confirm_e_mail" placeholder="メールアドレス(再確認)" class="w-full border-b border-black focus:outline-none" required>
+                    </div>
+                    <div class="mt-3">    
+                        <input type="password" name="password" id="pw" placeholder="パスワード" class="w-full border-b border-black focus:outline-none" required>
+                    </div>
+                    <div class="mt-3">    
+                        <input type="password" name="confirm_password" id="pw2" placeholder="パスワード(再確認)" class="w-full border-b border-black focus:outline-none" required>
+                    </div> 
+                    <div class="text-center mt-5">   
+                        <button type="submit" name="btn_submit" class="w-60 h-10 bg-cyan-400 rounded-md text-white font-bold hover:cursor-pointer mb-4">送信</button>
                     </div>
                 </div>
-                <!-- 変更ボタン -->
-                <div class="text-center">
-                    <p>
-                        <button class="bg-blue-400 font-semibold text-white py-2 px-4 rounded m-5" type="ChangeButton">
-                            変更する
-                        </button>
-                    </p>
-                </div>
-            </form>
-        </div>
-    </main>
-</body>
-
+            </div> 
+        </form> 
+        
+        
+    </main>    
+</body>  
 </html>
