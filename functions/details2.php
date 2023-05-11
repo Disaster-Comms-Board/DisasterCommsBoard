@@ -20,8 +20,8 @@
 
       //安否確認
       $condition = filter_input(INPUT_POST,"condition");
-      //出社状況
-      $isAttend = filter_input(INPUT_POST,"isAttend");
+      //部署
+      $section = filter_input(INPUT_POST,"section_id");
 
     }
 
@@ -36,9 +36,10 @@
       $db -> setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
 
       //SQL文準備
-      $sql = "SELECT u.user_id,u.first_name,u.last_name,s.store_id, s.store_name,c.condition,c.isAttend,u.role FROM user AS u 
+      $sql = "SELECT u.user_id,u.first_name,u.last_name,u.section_id,se.section_name,s.store_id,s.store_name,c.condition,c.isAttend,u.role FROM user AS u 
               LEFT JOIN contact AS c ON(u.user_id = c.user_id) 
-              JOIN store AS s ON (u.store_id = s.store_id)";
+              JOIN store AS s ON (u.store_id = s.store_id)
+              JOIN section AS se ON (u.section_id = se.section_name)";
 
       //検索 
       if(isset($_POST['btn_submit'])){
@@ -51,8 +52,8 @@
           $sql .= " WHERE u.role = :role";
         }
         
-        if(isset($_POST['condition'])){
-          $sql .= " WHERE c.condition = :condition";
+        if(isset($_POST['section_id'])){
+          $sql .= " WHERE u.section_id = :section_id";
         }
 
         //文字検索
@@ -67,7 +68,7 @@
 
         $stmt -> bindParam(":store",$store,PDO::PARAM_STR);
         $stmt -> bindParam(":role",$role,PDO::PARAM_STR);
-        $stmt -> bindParam(":condition",$condition,PDO::PARAM_STR);
+        $stmt -> bindParam(":section_id",$section_id,PDO::PARAM_STR);
         $stmt -> bindParam(":name",$nameLike,PDO::PARAM_STR);
 
 
@@ -79,13 +80,7 @@
         }
       }else{
 
-        //連絡有無　入力があれば
-        if(is_null($isAttend)){
-          $isContact = "○";
-        }else{
-          $isContact = "×";
-        }
-
+        
         //格納
         $stmt = $db -> prepare($sql);
 
@@ -97,6 +92,14 @@
         while($rows = $stmt -> fetch(PDO::FETCH_ASSOC)){
           $result[] = $rows;
         }
+
+        //連絡有無　入力があれば　エラー
+        if(is_null($result['isAttend'])){
+          $result['isContact'] = "○";
+        }else{
+          $result['isContact'] = "×";
+        }
+
       }
 
       //PDOオブジェクトの廃棄

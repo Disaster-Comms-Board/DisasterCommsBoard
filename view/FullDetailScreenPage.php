@@ -1,3 +1,9 @@
+<?php
+  //外部ファイル読み込み
+  require_once "../functions/details2.php";
+  DetailSecrch();
+
+?>
 <!DOCTYPE html>
 <html lang="ja">
   <head>
@@ -42,22 +48,25 @@
             <div >
               <select name="store" id="store"  class="w-16 md:w-28 py-1 pr-2 md:py-2 md:pl-4 my-5 border border-black rounded focus:outline-none">
                 <option value='' disabled selected style='display:none;'>店舗選択</option>
-                <option class="" value=''>梅田駅前店</option>
+                <option class="" value=''><?=$result['s.store_name'] ?></option>
               </select>
             </div>
             <div>
               <select name="section" id="section" class="w-16 md:w-28 py-1 pr-2 md:py-2 md:pl-4 my-5 mx-3 md:mx-3 border border-black rounded focus:outline-none">
                 <option value='' disabled selected style='display:none;'>部署選択</option>
+                <option value=""><?=$result['se.section_name'] ?></option>
               </select>
             </div>
             <div>
               <select name="roll" id="roll" class="w-16 md:w-28 py-1 pr-2 md:py-2 md:pl-4 my-5 border border-black rounded focus:outline-none">
                 <option value='' disabled selected style='display:none;'>役職選択</option>
+                <option value=""><?=$result['u.role'] ?></option>
               </select>
             </div>
             <div>
               <select name="safety" id="safety" class="w-16 md:w-28 py-1 pr-2 md:py-2 md:pl-4 my-5 mx-3 md:mx-3 border border-black rounded focus:outline-none">
                 <option value='' disabled selected style='display:none;'>安否選択</option>
+                <option value=""><?=$result['c.condition'] ?></option>
               </select>
             </div>
           </div>
@@ -79,13 +88,14 @@
             </tr>
           </thead>
           <tbody class="text-center">
+            <?php foreach($result as $res):?>
             <tr class="text-xs md:text-xl border border-solid border-gray-500 font-bold h-10 md:h-14 hover:bg-green-50">
-              <td class="border border-solid border-gray-500">0000001</td>
-              <td class="border border-solid border-gray-500">ECC太郎</td>
-              <td class="border border-solid border-gray-500">梅田駅前店</td>
-              <td class="border border-solid border-gray-500">有</td>
-              <td class="border border-solid border-gray-500">無事</td>
-              <td class="border border-solid border-gray-500">可</td>
+              <td class="border border-solid border-gray-500"><?=$res['u.user_id'] ?>0000001</td>
+              <td class="border border-solid border-gray-500"><?= $res['u.first_name'] ?> <?= $result['u.last_name'] ?>ECC太郎</td>
+              <td class="border border-solid border-gray-500"><?=$res['s.store_name'] ?>梅田駅前店</td>
+              <td class="border border-solid border-gray-500"><?=$isContact ?>有</td>
+              <td class="border border-solid border-gray-500"><?=$res['c.condition'] ?>無事</td>
+              <td class="border border-solid border-gray-500"><?=$res['c.isAttend'] ?>可</td>
               <!-- アルバイト側画面では表示しないようにする -->
               <td class="border border-solid border-gray-500">
                 <!-- 個人詳細画面に遷移 -->
@@ -94,6 +104,7 @@
                 </a>
               </td>
             </tr>
+            <?php endforeach; ?>
           </tbody>  
         </table>
       </div>
