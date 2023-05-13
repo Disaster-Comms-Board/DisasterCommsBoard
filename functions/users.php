@@ -133,13 +133,7 @@ function getUser($user_id){
       $db -> setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
       $db -> setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
   
-      $sql = "SELECT u.user_id, u.first_name, u.last_name, u.role, u.phone_number,u.e_mail, u.section_id, se.section_name
-      , s.store_id, s.store_name, c.condition, c.isAttend, c.detail
-      FROM user AS u 
-      LEFT JOIN contact AS c ON u.user_id = c.user_id 
-      JOIN store AS s ON u.store_id = s.store_id 
-      JOIN section AS se ON u.section_id = se.section_id 
-      WHERE u.user_id = :user_id";
+      $sql = "SELECT * FROM user WHERE user_id = :user_id";
       $stmt = $db -> prepare($sql);
       
       $stmt -> bindParam(':user_id', $user_id, PDO::PARAM_STR);
@@ -158,6 +152,47 @@ function getUser($user_id){
     }
 
   return $result;
+}
+
+/**
+ * userListからユーザ情報（詳細表示用）
+ * 
+ * @param string $user_id
+ * @return array $result ユーザー情報の配列（1人）
+ */
+function getUserDetail($user_id){
+  try{
+    $dsn = "mysql:host=".DB_HOST.";dbname=".DB_NAME.";charset=".DB_CHARSET;
+    $db = new PDO($dsn, DB_USER, DB_PASS);
+    $db -> setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+    $db -> setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+
+    $sql = "SELECT u.user_id, u.first_name, u.last_name, u.role, u.phone_number,u.e_mail, u.section_id, se.section_name
+    , s.store_id, s.store_name, c.condition, c.isAttend, c.detail
+    FROM user AS u 
+    LEFT JOIN contact AS c ON u.user_id = c.user_id 
+    JOIN store AS s ON u.store_id = s.store_id 
+    JOIN section AS se ON u.section_id = se.section_id 
+    WHERE u.user_id = :user_id";
+
+    $stmt = $db -> prepare($sql);
+    
+    $stmt -> bindParam(':user_id', $user_id, PDO::PARAM_STR);
+    $stmt -> execute();
+    
+    $result = [];
+    while($rows = $stmt -> fetch(PDO::FETCH_ASSOC)){
+      $result[] = $rows;
+    }
+    
+  } catch (PDOException $poe){
+    exit("DBエラー".$poe -> getMessage());
+  } finally {
+    $stmt = null;
+    $db = null;
+  }
+
+return $result[0];
 }
 
 /**

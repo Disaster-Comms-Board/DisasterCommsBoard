@@ -2,8 +2,10 @@
     include '../functions/users.php';
 
     $error = '';
+    $message = '';
     if(isset($_POST['btn_submit'])){
         if(login()){
+            $message = '編集完了しました';
             // メインページへ
             header("location: MainScreenPage.php");
         } else {
@@ -100,6 +102,13 @@
                     <span class='block sm:inline'>もう一度入力してください</span>
                 </div>
             <?php endif ?>
+            <?php
+            if($message != ''): ?>
+                <div class='w-1/2 bg-blue-100 border border-blue-400 text-red-700 px-4 py-3 rounded mx-auto text-center mt-5' role='alert'>
+                    <strong class='font-bold'><?=$message ?></strong>
+                </div>
+            <?php endif ?>
+
         </main>    
     </body>  
 </html>

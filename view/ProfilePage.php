@@ -4,13 +4,15 @@ require_once '../functions/getInfo.php';
 
 session_start();
 
-$error = '';
+$user = getUser($_SESSION['user_id'])[0];
+
+$message = '';
 if(isset($_POST['btn_submit'])){
     if(checkPW($_SESSION['user_id'], $_POST['password'])){
         updateUser();
         header("Location: MainScreenPage.php");
     } else {
-        $error = 'パスワードが間違えています';
+        $message = 'パスワードが間違えています';
     }
 }
 ?>
@@ -50,11 +52,11 @@ if(isset($_POST['btn_submit'])){
                 <div class="w-full border border-gray-600 rounded-md mx-80 mt-10 pt-5 pb-2 px-20">
                     <h1 class=" text-sm md:text-4xl font-bold text-center">編集</h1>
                     <div class="mt-5">
-                        <input type="number" name="user_id" placeholder="ID" class="w-full border-b border-black focus:outline-none" required>
+                        <input type="number" name="user_id" value="<?=$user['user_id'] ?>" placeholder="ID" class="w-full border-b border-black focus:outline-none" readonly>
                     </div>   
                     <div class="mt-3">
-                        <input type="text" name="last_name" placeholder="姓" class="w-full mr-5 border-b border-black focus:outline-none" required>
-                        <input type="text" name="first_name" placeholder="名" class="w-full border-b border-black focus:outline-none" required>
+                        <input type="text" name="last_name" value="<?=$user['last_name'] ?>" placeholder="姓" class="w-full mr-5 border-b border-black focus:outline-none" required>
+                        <input type="text" name="first_name" value="<?=$user['first_name'] ?>" placeholder="名" class="w-full border-b border-black focus:outline-none" required>
                     </div>
                     <div class="flex">
                         <div class="flex-initial me-5">
@@ -64,7 +66,7 @@ if(isset($_POST['btn_submit'])){
                             <select name="section_id" id="section" class="w-14 md:w-28 py-1 pr-1  md:pl-4 text-gray-400 border border-gray-400 rounded">
                                 <option value='' disabled selected style='display:none;'>部署選択</option>
                                 <?php foreach(getSections() as $section):?>
-                                    <option value="<?=$section['section_id']?>"><?=$section['section_name']?></option>
+                                    <option value="<?=$section['section_id']?>" <?php if($section['section_id'] == $user['section_id']) echo 'selected' ?>><?=$section['section_name']?></option>
                                 <?php endforeach?>
                             </select>
                         </div>
@@ -75,19 +77,16 @@ if(isset($_POST['btn_submit'])){
                             <select name="store_id" id="store_id" class="w-14 md:w-28 py-1 pr-1  md:pl-4 text-gray-400 border border-gray-400 rounded">
                                 <option value="" disables selected>店舗選択</option>
                                 <?php foreach(getStores() as $store):?>
-                                    <option value="<?=$store['store_id']?>"><?=$store['store_name']?></option>
+                                    <option value="<?=$store['store_id']?>" <?php if($store['store_id'] == $user['store_id']) echo 'selected' ?>><?=$store['store_name']?></option>
                                 <?php endforeach?>
                             </select>
                         </div>
                     </div>
                     <div class="mt-3">    
-                        <input type="tel" name="phone_number" placeholder="電話番号" class="w-full border-b border-black focus:outline-none" required>
+                        <input type="tel" name="phone_number" value="<?=$user['phone_number'] ?>" placeholder="電話番号" class="w-full border-b border-black focus:outline-none" required>
                     </div>
                     <div class="mt-3">    
-                        <input type="email" name="e_mail" placeholder="メールアドレス" class="w-full border-b border-black focus:outline-none" required>
-                    </div>
-                    <div class="mt-3">    
-                        <input type="email" name="confirm_e_mail" placeholder="メールアドレス(再確認)" class="w-full border-b border-black focus:outline-none" required>
+                        <input type="email" name="e_mail" value="<?=$user['e_mail'] ?>" placeholder="メールアドレス" class="w-full border-b border-black focus:outline-none" required>
                     </div>
                     <div class="mt-3">    
                         <input type="password" name="password" id="pw" placeholder="パスワード" class="w-full border-b border-black focus:outline-none" required>
@@ -101,8 +100,14 @@ if(isset($_POST['btn_submit'])){
                 </div>
             </div> 
         </form> 
-        
-        
     </main>    
+    <!-- メッセージ -->
+    <?php
+    if($message != ''): ?>
+        <div class='w-1/2 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mx-auto text-center mt-5' role='alert'>
+            <strong class='font-bold'><?=$message ?></strong><br>
+            <span class='block sm:inline'>もう一度入力してください</span>
+        </div>
+    <?php endif ?>
 </body>  
 </html>

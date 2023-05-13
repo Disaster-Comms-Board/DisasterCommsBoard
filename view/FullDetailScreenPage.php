@@ -2,7 +2,7 @@
   //外部ファイル読み込み
   require_once "../functions/details2.php";
   require_once '../functions/getInfo.php';
-  $all_users = DetailSearch();
+  $all_users = detailSearch();
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -41,7 +41,7 @@
         <!-- 検索欄 -->
         <div class="flex flex-wrap ">  
           <div class="inline-flex md:items-center md:mt-3 me-2">
-            <input type="search" name="search" placeholder="名前" class="mt-5 md:mt-0 mr-1 pl-1 w-full md:w-60 h-8 border border-black rounded-lg focus:outline-none">
+            <input type="search" name="name" placeholder="名前" class="mt-5 md:mt-0 mr-1 pl-1 w-full md:w-60 h-8 border border-black rounded-lg focus:outline-none">
             <!-- <input type="submit" value="検索" class="mr-3 mt-5 md:mt-0 md:mr-10 px-2 text-xs md:text-base text-white w-12 h-8 cursor-pointer bg-blue-400 rounded"> -->
           </div>
           <div class="flex md:mt-2">  
@@ -75,7 +75,7 @@
                 <option value="0">有事</option>
                 <option value="1">無事</option>
               </select>
-              <button name="btn_submit" class="mr-3 mt-5 md:mt-0 md:mr-10 px-2 text-xs md:text-base text-white w-12 h-8 cursor-pointer bg-blue-400 rounded">検索</button>
+              <button type="submit" name="btn_submit" class="mr-3 mt-5 md:mt-0 md:mr-10 px-2 text-xs md:text-base text-white w-12 h-8 cursor-pointer bg-blue-400 rounded">検索</button>
             </div>
           </div>
         </div>  

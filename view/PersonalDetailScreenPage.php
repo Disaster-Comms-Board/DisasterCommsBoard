@@ -2,7 +2,7 @@
 require_once '../functions/users.php';
 
 session_start();
-$user = getUser($_GET['user_id'])[0];
+$user = getUserDetail($_GET['user_id']);
 ?>
 
 <!DOCTYPE html>
