@@ -3,13 +3,6 @@
   require_once "../functions/details2.php";
   require_once '../functions/getInfo.php';
   $all_users = DetailSearch();
-
-  if(isset($_GET['btn_submit'])){
-    echo '<pre>';
-    print_r($_GET);
-    echo '</pre>';
-  }
-
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -71,9 +64,9 @@
             <div>
               <select name="roll" id="roll" class="w-16 md:w-28 py-1 pr-2 md:py-2 md:pl-4 my-5 border border-black rounded focus:outline-none">
                 <option value='' disabled selected style='display:none;'>役職選択</option>
-                <option value="Admin">管理者</option>
-                <option value="Employee">社員</option>
-                <option value="Part">アルバイト</option>
+                <?php foreach($all_role as $role_id => $role_name): ?>
+                <option value="<?=$role_id ?>"><?=$role_name ?></option>
+                <?php endforeach; ?>
               </select>
             </div>
             <div>

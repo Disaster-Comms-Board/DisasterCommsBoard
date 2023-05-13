@@ -1,6 +1,12 @@
 <?php
 require_once "def.php";
 
+$all_role = [
+  'Admin' => '管理者',
+  'Employee' => '社員',
+  'Part' => 'アルバイト'
+];
+
 /**
  * 部署の表示
  *

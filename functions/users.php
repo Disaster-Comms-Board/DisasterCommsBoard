@@ -133,7 +133,13 @@ function getUser($user_id){
       $db -> setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
       $db -> setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
   
-      $sql = "SELECT * FROM user WHERE user_id = :user_id";
+      $sql = "SELECT u.user_id, u.first_name, u.last_name, u.role, u.phone_number,u.e_mail, u.section_id, se.section_name
+      , s.store_id, s.store_name, c.condition, c.isAttend, c.detail
+      FROM user AS u 
+      LEFT JOIN contact AS c ON u.user_id = c.user_id 
+      JOIN store AS s ON u.store_id = s.store_id 
+      JOIN section AS se ON u.section_id = se.section_id 
+      WHERE u.user_id = :user_id";
       $stmt = $db -> prepare($sql);
       
       $stmt -> bindParam(':user_id', $user_id, PDO::PARAM_STR);
