@@ -1,3 +1,10 @@
+<?php
+require_once '../functions/contact.php';
+
+$condition_num = getPeople();
+$no_contact_num = getNoContact();
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -37,14 +44,16 @@
           <textarea name="info" class="w-full h-32 md:h-44 border border-black rounded focus:outline-none "></textarea>
           <div class="flex justify-center text-left pl-5">
             <ul class="m-4"> 
-              <li class="text-2xl font-bold m-2  border-black pl-2">無事</li>
-              <li class="text-2xl font-bold m-2  border-black pl-2">有事</li>
+              <?php foreach($condition as $con): ?>
+              <li class="text-2xl font-bold m-2  border-black pl-2"><?=$con ?></li>
+              <?php endforeach?>
               <li class="text-2xl font-bold m-2  border-black">未確認<li>
             </ul>
             <ul class="m-4"> 
-              <li class="text-2xl font-bold m-2  border-black">1</li>
-              <li class="text-2xl font-bold m-2  border-black">2</li>
-              <li class="text-2xl font-bold m-2  border-black">3<li>
+              <?php foreach($condition_num as $num): ?>
+              <li class="text-2xl font-bold m-2  border-black"><?=$num ?></li>
+              <?php endforeach ?>
+              <li class="text-2xl font-bold m-2  border-black"><?=$no_contact_num ?><li>
             </ul>
             <ul class="m-4"> 
               <li class="text-2xl font-bold m-2  border-black">人</li>

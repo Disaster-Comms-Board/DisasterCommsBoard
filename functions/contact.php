@@ -1,6 +1,9 @@
 <?php
 require_once "def.php";
 
+// global $condition;
+$condition = ['有事', '無事'];
+
 /**
  * 登録済みの連絡情報を取得
  *
@@ -119,6 +122,77 @@ function editContact(){
       $stmt = null;
       $db = null;
     }
+}
+
+/**
+ * 無事・有事・未確認の人数の取得
+ * 
+ * @return array
+ */
+function getPeople(){
+    global $condition;
+    $people = [];
+
+    foreach($condition as $con => $name){
+        try{
+            $dsn = "mysql:host=".DB_HOST.";dbname=".DB_NAME.";charset=".DB_CHARSET;
+            $db = new PDO($dsn, DB_USER, DB_PASS);
+            $db -> setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+            $db -> setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+    
+            $sql = "SELECT * FROM contact WHERE `condition` = :condition";
+    
+            $stmt = $db -> prepare($sql);
+            $stmt -> bindParam(':condition', $con);
+    
+            $stmt -> execute();
+            $result = [];
+            while($rows = $stmt -> fetch(PDO::FETCH_ASSOC)){
+                $result[] = $rows;
+            }
+    
+        } catch (PDOException $poe){
+            exit("DBエラー".$poe -> getMessage());
+        } finally {
+          $stmt = null;
+          $db = null;
+        }
+        $people[] = count($result);
+    }
+
+    return $people;
+}
+
+/**
+ * 未確認の人数の取得
+ *
+ * @return int $num
+ */
+function getNoContact(){
+    try{
+        $dsn = "mysql:host=".DB_HOST.";dbname=".DB_NAME.";charset=".DB_CHARSET;
+        $db = new PDO($dsn, DB_USER, DB_PASS);
+        $db -> setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+        $db -> setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+
+        $sql = "SELECT * FROM userslist WHERE `condition` IS NULL";
+
+        $stmt = $db -> prepare($sql);
+
+        $stmt -> execute();
+        $result = [];
+        while($rows = $stmt -> fetch(PDO::FETCH_ASSOC)){
+            $result[] = $rows;
+        }
+
+    } catch (PDOException $poe){
+        exit("DBエラー".$poe -> getMessage());
+    } finally {
+      $stmt = null;
+      $db = null;
+    }
+
+    return count($result);
 }
 
 ?>
