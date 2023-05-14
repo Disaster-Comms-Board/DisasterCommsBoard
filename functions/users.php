@@ -211,6 +211,7 @@ function login(){
     session_start();
     $_SESSION['user_id'] = $user_id;
     $_SESSION['full_name'] = $user['last_name'] . $user['first_name'];
+    $_SESSION['role'] = $user['role'];
   }
 
   return $success;
