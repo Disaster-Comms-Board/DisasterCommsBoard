@@ -72,6 +72,7 @@ if(isset($_POST['btn_submit'])){
         left: 0;
       }
     </style>
+    <!-- <link rel="stylesheet" href="../css/reset.css"> -->
 </head>
 <body>
   <?php

@@ -2,6 +2,9 @@
   //外部ファイル読み込み
   require_once "../functions/details2.php";
   require_once '../functions/getInfo.php';
+
+  session_start();
+  $role = $_SESSION['role'];
   $all_users = detailSearch();
 ?>
 <!DOCTYPE html>
@@ -75,7 +78,7 @@
                 <option value="0">有事</option>
                 <option value="1">無事</option>
               </select>
-              <button type="submit" name="btn_submit" class="mr-3 mt-5 md:mt-0 md:mr-10 px-2 text-xs md:text-base text-white w-12 h-8 cursor-pointer bg-blue-400 rounded">検索</button>
+              <button type="submit" class="mr-3 mt-5 md:mt-0 md:mr-10 px-2 text-xs md:text-base text-white w-12 h-8 cursor-pointer bg-blue-400 rounded">検索</button>
             </div>
           </div>
         </div>  
@@ -92,7 +95,9 @@
               <th class="border border-solid border-gray-500">安否</th>
               <th class="border border-solid border-gray-500">出社</th>
               <!-- アルバイト側の画面では表示しないようにする -->
+              <?php if($role != 'Part'): ?>
               <th class="border border-solid border-gray-500"></th>        
+              <?php endif; ?>
             </tr>
           </thead>
           <tbody class="text-center">
@@ -105,12 +110,14 @@
               <td class="border border-solid border-gray-500"><?php if($user['isContact']) echo ($user['condition'] == 0) ? '有事' : '無事' ?></td>
               <td class="border border-solid border-gray-500"><?php if($user['isContact']) echo ($user['isAttend'] == 0) ? '✗' : '○' ?></td>
               <!-- アルバイト側画面では表示しないようにする -->
+              <?php if($role != 'Part'): ?>
               <td class="border border-solid border-gray-500">
                 <!-- 個人詳細画面に遷移 -->
                 <a href="PersonalDetailScreenPage.php?user_id=<?=$user['user_id'] ?>">
                   <button class="cursor-pointer text-blue-500">詳細画面</botton>
                 </a>
               </td>
+              <?php endif; ?>
             </tr>
             <?php endforeach; ?>
           </tbody>  

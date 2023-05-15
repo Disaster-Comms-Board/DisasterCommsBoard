@@ -62,7 +62,7 @@ if(isset($_POST['btn_submit'])){
                     </div>   
                     <div class="mt-3">
                         <input type="text" name="last_name" placeholder="姓" class="w-full mr-5 border-b border-black focus:outline-none" required>
-                        <input type="text" name="first_name" placeholder="名" class="w-full border-b border-black focus:outline-none" required>
+                        <input type="text" name="first_name" placeholder="名" class="w-full border-b border-black focus:outline-none mt-3" required>
                     </div>
                     <div class="flex">
                         <div class="flex-initial me-5">

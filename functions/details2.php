@@ -43,46 +43,46 @@
 
       //検索 
       if(isset($_GET['btn_submit'])){
-        if(isset($_GET['store_id']) || isset($_GET['role']) || isset($_GET['section_id']) || $_GET['name'] != ''){
-          $sql .= " WHERE";
-          if(isset($_GET['store_id'])){
-            $sql .= "s.store_id = :store_id";
-          }
+        // if(isset($_GET['store_id']) || isset($_GET['role']) || isset($_GET['section_id']) || $_GET['name'] != ''){
+        //   $sql .= " WHERE";
+        //   if(isset($_GET['store_id'])){
+        //     $sql .= "s.store_id = :store_id";
+        //   }
   
-          if(isset($_GET['role'])){
-            $sql .= "u.role = :role";
-          }
+        //   if(isset($_GET['role'])){
+        //     $sql .= "u.role = :role";
+        //   }
           
-          if(isset($_GET['section_id'])){
-            $sql .= "u.section_id = :section_id";
-          }
+        //   if(isset($_GET['section_id'])){
+        //     $sql .= "u.section_id = :section_id";
+        //   }
   
-          //文字検索
-          if($_GET['name'] != ''){
-            $sql .= "u.first_name LIKE :name OR u.last_name LIKE :name ";
-            $nameLike = "%".$name."%";
-          }
-        }
+        //   //文字検索
+        //   if($_GET['name'] != ''){
+        //     $sql .= "u.first_name LIKE :name OR u.last_name LIKE :name ";
+        //     $nameLike = "%".$name."%";
+        //   }
+        // }
 
         echo $sql;
 
         //格納
         $stmt = $db -> prepare($sql);
 
-        if(isset($_GET['store_id']) || isset($_GET['role']) || isset($_GET['section_id']) || $_GET['name'] != ''){
-          if(isset($_GET['store_id'])){
-            $stmt -> bindParam(":store_id",$store_id,PDO::PARAM_STR);
-          }
-          if(isset($_GET['role'])){
-            $stmt -> bindParam(":role",$role,PDO::PARAM_STR);
-          }
-          if(isset($_GET['section_id'])){
-            $stmt -> bindParam(":section_id",$section_id,PDO::PARAM_STR);
-          }
-          if(isset($_GET['name'])){
-            $stmt -> bindParam(":name",$nameLike,PDO::PARAM_STR);
-          }
-        }
+        // if(isset($_GET['store_id']) || isset($_GET['role']) || isset($_GET['section_id']) || $_GET['name'] != ''){
+        //   if(isset($_GET['store_id'])){
+        //     $stmt -> bindParam(":store_id",$store_id,PDO::PARAM_STR);
+        //   }
+        //   if(isset($_GET['role'])){
+        //     $stmt -> bindParam(":role",$role,PDO::PARAM_STR);
+        //   }
+        //   if(isset($_GET['section_id'])){
+        //     $stmt -> bindParam(":section_id",$section_id,PDO::PARAM_STR);
+        //   }
+        //   if(isset($_GET['name'])){
+        //     $stmt -> bindParam(":name",$nameLike,PDO::PARAM_STR);
+        //   }
+        // }
 
         $stmt -> execute();
         //処理結果の格納
